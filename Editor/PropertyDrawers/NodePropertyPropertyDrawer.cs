@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEditor.UIElements;
-using System.Runtime.Remoting.Messaging;
 
 namespace TheKiwiCoder {
 
@@ -38,11 +37,22 @@ namespace TheKiwiCoder {
             dropdown.value = reference.managedReferenceValue as BlackboardKey;
             dropdown.tooltip = "Bind value to a BlackboardKey";
             dropdown.style.flexGrow = 1.0f;
-            dropdown.RegisterCallback<MouseEnterEvent>((evt) => {
+            dropdown.RegisterCallback<MouseEnterEvent>((_) => {
                 dropdown.choices.Clear();
-                foreach (var key in tree.blackboard.keys) {
+                foreach (BlackboardKey key in tree.blackboard.keys) {
                     if (propertyType.IsAssignableFrom(key.underlyingType)) {
                         dropdown.choices.Add(key);
+                    }
+                }
+
+                if (tree.sharedBlackboard)
+                {
+                    foreach (BlackboardKey key in tree.sharedBlackboard.blackboard.keys)
+                    {
+                        if (propertyType.IsAssignableFrom(key.underlyingType))
+                        {
+                            dropdown.choices.Add(key);
+                        }
                     }
                 }
                 dropdown.choices.Add(null);
@@ -121,7 +131,7 @@ namespace TheKiwiCoder {
 
             dropdown.RegisterCallback<MouseEnterEvent>((evt) => {
                 dropdown.choices.Clear();
-                foreach (var key in tree.blackboard.keys) {
+                foreach (BlackboardKey key in tree.blackboard.keys) {
                     dropdown.choices.Add(key);
                 }
                 dropdown.choices.Sort((left, right) => {

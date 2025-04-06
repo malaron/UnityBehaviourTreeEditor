@@ -34,7 +34,7 @@ namespace TheKiwiCoder {
         public int gridSnapSizeX = 15;
 
         [Tooltip("Vertical grid size nodes will snap to")]
-        public int gridSnapSizeY = 225;
+        public int gridSnapSizeY = 25;
 
         [Tooltip("If enabled, selecting a node will automatically add all it's children to the selection. If disabled, hold control to select entire node hierarchy")]
         public bool autoSelectNodeHierarchy = false;
