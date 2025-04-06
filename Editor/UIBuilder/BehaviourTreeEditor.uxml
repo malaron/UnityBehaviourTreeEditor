@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/Packages/com.thekiwicoder.behaviourtreeditor/Editor/UIBuilder/BehaviourTreeEditorStyle.uss?fileID=7433441132597879392&amp;guid=8781ca2a6e79ccf4da2e234c8c123d2f&amp;type=3#BehaviourTreeEditorStyle" />
+    <Style src="project://database/Assets/com.thekiwicoder.behaviourtreeditor@08cf24d55980/Editor/UIBuilder/BehaviourTreeEditorStyle.uss?fileID=7433441132597879392&amp;guid=8781ca2a6e79ccf4da2e234c8c123d2f&amp;type=3#BehaviourTreeEditorStyle" />
     <uie:Toolbar>
         <uie:ToolbarMenu display-tooltip-when-elided="true" text="Assets " />
         <uie:ToolbarSpacer style="flex-grow: 1;" />
@@ -13,15 +13,25 @@
                     <TheKiwiCoder.InspectorView style="background-color: rgb(56, 56, 56);" />
                 </ui:VisualElement>
                 <ui:VisualElement name="blackboard-container" style="background-color: rgb(56, 56, 56);">
-                    <ui:Label text="Blackboard" display-tooltip-when-elided="true" style="background-color: rgb(37, 37, 37);" />
                     <TheKiwiCoder.BlackboardView style="flex-grow: 1;">
-                        <ui:ListView focusable="true" name="ListView_Keys" view-data-key="ListView_Keys" show-border="false" show-alternating-row-backgrounds="ContentOnly" show-foldout-header="false" header-title="Keys" reorderable="true" reorder-mode="Animated" show-bound-collection-size="false" virtualization-method="DynamicHeight" binding-path="blackboard.keys" style="flex-grow: 1;" />
-                        <ui:VisualElement style="border-top-width: 1px; border-top-color: rgb(89, 89, 89); padding-top: 1px; min-height: 80px;">
-                            <ui:Label text="Create New Key..." display-tooltip-when-elided="true" style="-unity-font-style: italic;" />
-                            <ui:TextField picking-mode="Ignore" label="Name" name="TextField_KeyName" />
-                            <ui:VisualElement name="PopupField_Placeholder" />
-                            <ui:Button text="Create" display-tooltip-when-elided="true" name="Button_KeyCreate" />
-                        </ui:VisualElement>
+                        <TheKiwiCoder.SplitView orientation="Vertical" fixed-pane-initial-dimension="200">
+                            <ui:VisualElement name="shared-blackboard-container" style="background-color: rgb(56, 56, 56);">
+                                <ui:Label text="Shared Blackboard" display-tooltip-when-elided="true" style="background-color: rgb(37, 37, 37);" />
+                                <uie:PropertyField label="Name" name="PropertyField_Global_Blackboard" binding-path="sharedBlackboard" />
+                                <ui:ListView focusable="true" name="ListView_Shared_Keys" view-data-key="ListView_Shared_Keys" show-border="false" show-alternating-row-backgrounds="ContentOnly" show-foldout-header="false" header-title="Keys" reorderable="true" reorder-mode="Animated" show-bound-collection-size="false" virtualization-method="DynamicHeight" binding-path="blackboard.keys" style="flex-grow: 1;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="local-blackboard-container" style="background-color: rgb(56, 56, 56);">
+                                <ui:Label text="Local Blackboard" display-tooltip-when-elided="true" style="background-color: rgb(37, 37, 37);" />
+                                <ui:ListView focusable="true" name="ListView_Keys" view-data-key="ListView_Keys" show-border="false" show-alternating-row-backgrounds="ContentOnly" show-foldout-header="false" header-title="Keys" reorderable="true" reorder-mode="Animated" show-bound-collection-size="false" virtualization-method="DynamicHeight" binding-path="blackboard.keys" style="flex-grow: 1;" />
+                                <ui:VisualElement style="border-top-width: 1px; border-top-color: rgb(89, 89, 89); padding-top: 1px; min-height: 80px;">
+                                    <ui:Label text="Create New Key..." display-tooltip-when-elided="true" style="-unity-font-style: italic;" />
+                                    <ui:TextField picking-mode="Ignore" label="Name" name="TextField_KeyName" />
+                                    <ui:VisualElement name="PopupField_Type" />
+                                    <ui:VisualElement name="PopupField_Scope" />
+                                    <ui:Button text="Create" display-tooltip-when-elided="true" name="Button_KeyCreate" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </TheKiwiCoder.SplitView>
                     </TheKiwiCoder.BlackboardView>
                 </ui:VisualElement>
             </TheKiwiCoder.SplitView>

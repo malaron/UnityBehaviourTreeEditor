@@ -17,6 +17,9 @@ namespace TheKiwiCoder {
 
         public Blackboard blackboard = new Blackboard();
 
+        [SerializeReference]
+        public SharedBlackboard sharedBlackboard;
+        
         public Context treeContext;
 
         #region  EditorProperties 

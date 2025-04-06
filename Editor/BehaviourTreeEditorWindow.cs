@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEditor.Callbacks;
 using Unity.Profiling;
+using Object = UnityEngine.Object;
 
 namespace TheKiwiCoder {
 
@@ -148,15 +150,15 @@ namespace TheKiwiCoder {
             versionLabel = root.Q<Label>("Version");
 
             // Toolbar assets menu
-            toolbarMenu.RegisterCallback<MouseEnterEvent>((evt) => {
+            toolbarMenu.RegisterCallback<MouseEnterEvent>((_) => {
 
                 // Refresh the menu options just before it's opened (on mouse enter)
                 toolbarMenu.menu.MenuItems().Clear();
-                var behaviourTrees = EditorUtility.GetAssetPaths<BehaviourTree>();
+                List<string> behaviourTrees = EditorUtility.GetAssetPaths<BehaviourTree>();
                 behaviourTrees.ForEach(path => {
-                    var fileName = System.IO.Path.GetFileName(path);
-                    toolbarMenu.menu.AppendAction($"{fileName}", (a) => {
-                        var tree = AssetDatabase.LoadAssetAtPath<BehaviourTree>(path);
+                    string fileName = System.IO.Path.GetFileName(path);
+                    toolbarMenu.menu.AppendAction($"{fileName}", (_) => {
+                        BehaviourTree tree = AssetDatabase.LoadAssetAtPath<BehaviourTree>(path);
                         NewTab(tree, true, tree.name);
                     });
                 });
@@ -164,11 +166,11 @@ namespace TheKiwiCoder {
 
                     toolbarMenu.menu.AppendSeparator();
 
-                    var behaviourTreeInstances = Resources.FindObjectsOfTypeAll(typeof(BehaviourTreeInstance));
-                    foreach (var instance in behaviourTreeInstances) {
+                    Object[] behaviourTreeInstances = Resources.FindObjectsOfTypeAll(typeof(BehaviourTreeInstance));
+                    foreach (Object instance in behaviourTreeInstances) {
                         BehaviourTreeInstance behaviourTreeInstance = instance as BehaviourTreeInstance;
                         GameObject gameObject = behaviourTreeInstance.gameObject;
-                        if (behaviourTreeInstance != null && gameObject.scene != null && gameObject.scene.name != null) {
+                        if (behaviourTreeInstance != null && gameObject.scene.name != null) {
 
                             toolbarMenu.menu.AppendAction($"{gameObject.name} [{behaviourTreeInstance.behaviourTree.name}]", (a) => {
                                 NewTab(behaviourTreeInstance.RuntimeTree, true, behaviourTreeInstance.RuntimeTree.name);
@@ -230,7 +232,7 @@ namespace TheKiwiCoder {
             }
 
             NodeView source = CurrentTreeView.GetNodeByGuid(pendingScriptCreate.sourceGuid) as NodeView;
-            var nodeType = Type.GetType($"{pendingScriptCreate.scriptName}, Assembly-CSharp");
+            Type nodeType = Type.GetType($"{pendingScriptCreate.scriptName}, Assembly-CSharp");
             if (nodeType != null) {
                 NodeView createdNode;
                 if (source != null) {

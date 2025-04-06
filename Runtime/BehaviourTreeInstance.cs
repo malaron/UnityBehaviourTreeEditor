@@ -38,15 +38,8 @@ namespace TheKiwiCoder {
         [Tooltip("Override / set blackboard key values for this behaviour tree instance")]
         public List<BlackboardKeyValuePair> blackboardOverrides = new List<BlackboardKeyValuePair>();
 
-        public BehaviourTree RuntimeTree {
-            get {
-                if (runtimeTree != null) {
-                    return runtimeTree;
-                } else {
-                    return behaviourTree;
-                }
-            }
-        }
+        [Tooltip("Global blackboard to share across behaviour tree instances (optional)")]
+        public BehaviourTree RuntimeTree => runtimeTree != null ? runtimeTree : behaviourTree;
 
         // Runtime tree instance
         BehaviourTree runtimeTree;
