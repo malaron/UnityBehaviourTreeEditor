@@ -165,10 +165,10 @@ namespace TheKiwiCoder
 
         private bool ValidateKeyText(string text)
         {
+            if (text == "") return false;
+
             bool localKeyExists;
             bool sharedKeyExists = false;
-
-            if (text == "") return false;
 
             BehaviourTree tree = behaviourTree.Blackboard.serializedObject.targetObject as BehaviourTree;
 
