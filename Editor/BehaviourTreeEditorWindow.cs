@@ -201,7 +201,7 @@ namespace TheKiwiCoder {
             // Restore window state between compilations
             windowState.Restore(this);
 
-          //  Create new node for any scripts just created coming back from a compile.
+            // Create new node for any scripts just created coming back from a compile.
             if (pendingScriptCreate != null && pendingScriptCreate.pendingCreate) {
                 CreatePendingScriptNode();
             }
