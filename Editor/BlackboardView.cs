@@ -186,6 +186,7 @@ namespace TheKiwiCoder
         {
             Type newKeyType = newKeyTypeField.value;
             if (newKeyType != null)
+            {
                 switch (newKeyScopeField.value)
                 {
                     case BlackboardScope.Local:
@@ -195,6 +196,7 @@ namespace TheKiwiCoder
                         behaviourTree.CreateSharedBlackboardKey(newKeyTextField.text, newKeyType);
                         break;
                 }
+            }
 
             ValidateButton();
         }
